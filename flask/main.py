@@ -1,5 +1,6 @@
 import os
 from flask import Flask
+from urllib.parse import urljoin
 from opentelemetry import trace
 from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter as OTLPHTTPSpanExporter
 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter as OTLPGRPCSpanExporter
@@ -25,7 +26,7 @@ resource = Resource(attributes={
 trace.set_tracer_provider(TracerProvider(resource=resource))
 trace.get_tracer_provider().add_span_processor(
     BatchSpanProcessor(
-        OTLPHTTPSpanExporter(endpoint=otlp_endpoint+"/v1/traces"),
+        OTLPHTTPSpanExporter(endpoint=urljoin(otlp_endpoint, "/v1/traces")),
         # OTLPGRPCSpanExporter(endpoint=otlp_endpoint, insecure=True),
         #OTLPGRPCSpanExporter(endpoint="localhost:4317", insecure=True), # grpc
     )
