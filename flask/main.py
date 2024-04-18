@@ -11,7 +11,7 @@ from opentelemetry.sdk.resources import Resource
 
 app = Flask(__name__)
 
-otlp_endpoint = os.getenv("OTLP_ENDPOINT")
+otlp_endpoint = os.getenv("OTLPHTTP_ENDPOINT")
 if otlp_endpoint is None:
     raise ValueError("OTLP_ENDPOINT environment variable must be set")
 
@@ -26,8 +26,8 @@ resource = Resource(attributes={
 trace.set_tracer_provider(TracerProvider(resource=resource))
 trace.get_tracer_provider().add_span_processor(
     BatchSpanProcessor(
-        OTLPHTTPSpanExporter(endpoint=urljoin(otlp_endpoint, "/v1/traces")),
-        # OTLPGRPCSpanExporter(endpoint=otlp_endpoint, insecure=True),
+        #OTLPHTTPSpanExporter(endpoint=urljoin(otlp_endpoint, "/v1/traces")),
+        OTLPGRPCSpanExporter(endpoint=otlp_endpoint, insecure=True),
         #OTLPGRPCSpanExporter(endpoint="localhost:4317", insecure=True), # grpc
     )
 )
@@ -40,4 +40,4 @@ def hello():
     return 'Hello, OpenTelemetry!'
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5001)
