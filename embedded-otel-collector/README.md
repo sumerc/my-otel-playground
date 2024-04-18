@@ -20,4 +20,4 @@ make run
 
 to run the application.
 
-It will be listeting on default HTTP/GRPC otel-collector ports and export to the endpoint given using OTLP over HTTP.(which can also be configured from the code)
+It will be listening on default HTTP/GRPC otel-collector ports and export to the endpoint given using OTLP over HTTP.(which can also be configured from the code)
