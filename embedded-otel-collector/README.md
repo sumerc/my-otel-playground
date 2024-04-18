@@ -2,6 +2,8 @@
 
 This Go application embeds an OpenTelemetry Collector to process and export telemetry data. It demonstrates simplest possible configuration and usage of receivers and exporters directly within a Go application.
 
+Note: Dependent on `go.opentelemetry.io/collector` version `v0.96.0`
+
 ## Running
 
 Set the `OTLPHTTP_ENDPOINT` environment variable to configure the OTLP HTTP exporter endpoint:
