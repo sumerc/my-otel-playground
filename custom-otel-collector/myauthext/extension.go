@@ -26,7 +26,7 @@ func (ba *myAuth) serverStart(_ context.Context, _ component.Host) error {
 }
 
 func (ba *myAuth) authenticate(ctx context.Context, headers map[string][]string) (context.Context, error) {
-	fmt.Println("authenticate")
+	fmt.Println("authenticate2")
 	fmt.Println(headers)
 	cl := client.FromContext(ctx)
 	//cl.Auth = authData
