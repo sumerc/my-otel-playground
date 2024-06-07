@@ -17,12 +17,28 @@ exporters:
   debug:
     verbosity: detailed
 
+  clickhouse:
+    endpoint: tcp://localhost:9000
+    username: $CLICKHOUSE_USERNAME
+    password: $CLICKHOUSE_PASSWORD
+    database: my_otel_test_db
 
+processors:
+  resource:
+    attributes:
+    - key: tenant-id-processor-generated1
+      from_context: auth.tenant_id
+      #value: "zone-1"
+      action: insert
+    - key: tenant-id-processor-generated2
+      from_context: metadata.tenant_id
+      #value: "zone-1"
+      action: insert
 
 service:
   extensions: [myauthext]
   pipelines:
     traces:
       receivers: [otlp]
-      processors: []
-      exporters: [debug]
+      processors: [resource]
+      exporters: [debug, clickhouse]

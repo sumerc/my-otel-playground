@@ -1,7 +1,7 @@
 dist:
   name: my-otelcol
   description: Observability Pipeline Custom OTEL Collector
-  output_path: ./my-otelcol-dev-2
+  output_path: ./my-otelcol-dev-3
 
 extensions:
   - gomod: github.com/sumerc/myauthext v0.0.0
@@ -10,10 +10,12 @@ extensions:
 exporters:
   - gomod: go.opentelemetry.io/collector/exporter/debugexporter v0.100.0
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/exporter/clickhouseexporter v0.100.0
+    path: "./myclickhouseexporter"
 
 processors:
   - gomod: go.opentelemetry.io/collector/processor/batchprocessor v0.100.0
   - gomod: go.opentelemetry.io/collector/processor/memorylimiterprocessor v0.100.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourceprocessor v0.100.0
 
 receivers:
   - gomod: go.opentelemetry.io/collector/receiver/otlpreceiver v0.100.0
